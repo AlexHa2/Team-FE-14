@@ -49,7 +49,7 @@ export default function Footer() {
           <Container maxWidth="xl">
             <div className="block-footer-content-below">
               <div className="content-left-footer-below">
-                <p>© All Rights Reserved | 2024 - www.nextbarter.com</p>
+                <p>© All Rights Reserved | 2024 - www.doi.com</p>
               </div>
               <div className="content-right-footer-below">
                 <p>One Studio</p>
