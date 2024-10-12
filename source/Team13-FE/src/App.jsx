@@ -3,6 +3,7 @@
 import { Route, Routes } from 'react-router-dom'
 import { PublicRoutes } from "../src/components/Routes/index"
 import LayoutHomepage from './components/Layout/LayoutHomepage/LayoutHomepage'
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <Routes>
