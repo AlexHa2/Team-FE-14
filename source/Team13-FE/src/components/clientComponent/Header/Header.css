@@ -45,11 +45,12 @@
     border-radius: 7px;
 }
 
+/* this is quired condition user login or not,if did do comment display none */
 .block-button-login-header {
-    /* display: flex; */
+    display: flex;
     justify-content: center;
     align-items: center;
-    display: none;
+    /* display: none; */
 }
 
 .button-login-header {
@@ -141,6 +142,10 @@
     transition: background-color 0.5s linear, transform 0.3s 
 }
 
+.icon-responesive-header{
+    display: none;
+}
+
 @media (max-width: 1025px) {
     .block-icon-items{
         height: 40px;
@@ -153,3 +158,53 @@
     }
 }  
 
+
+
+@media (max-width: 765px){
+    .block-search-header{
+        display: none;
+        transition: display 0.5s linear, transform 0.3s;
+    }
+
+    .button-favorite-header-after-login{
+        display: none;
+        transition: display 0.5s linear, transform 0.3s;
+    }
+
+    .button-my-listing-header{
+        display: none;
+        transition: display 0.5s linear, transform 0.3s;
+    }
+
+    .button-view-profile-header{
+        display: none;
+        transition: display 0.5s linear, transform 0.3s;
+    }
+
+    .icon-responesive-header{
+        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .container-header-client{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #logo-header-homepage{
+        height: auto;
+        width: 100px;
+    }
+
+    .button-add-my-listing-header{
+        display: block;
+        transition: display 0.5s linear, transform 0.3s;
+    }
+
+
+
+   
+}
