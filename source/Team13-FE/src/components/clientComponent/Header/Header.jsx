@@ -2,7 +2,7 @@
 import LogoWeb from "../../../assets/logoWeb.jpg"
 import "./Header.css"
 import SearchIcon from '@mui/icons-material/Search';
-import { Link } from "react-router-dom"
+import { Link,useNavigate } from "react-router-dom"
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -10,6 +10,7 @@ import Avatar from "../../../assets/avatarUser.jpg"
 import { useState } from "react";
 import Offcanva from "../Offcanvas/Offcanvas";
 export default function Header() {
+    const navigate = useNavigate();
     const [state, setState] = useState(true);
     const [stateShowOffcanvas,setStateShowOffcanvas] = useState(false)
 
@@ -19,6 +20,10 @@ export default function Header() {
 
     const handleCloseOffcanvas = () => {
         setStateShowOffcanvas(false)
+    }
+
+    const signup = () => {
+        navigate('/signup')
     }
 
     return (
@@ -47,8 +52,8 @@ export default function Header() {
                         <div className="button-login-header">
                             <p>Log in</p>
                         </div>
-                        <div className="button-Signup-header">
-                            <p>Sign up</p>
+                        <div className="button-Signup-header" onClick={signup}>
+                            <p>Sign up</p> 
                         </div>
                     </div>
                     : <div className="block-button-after-login">
