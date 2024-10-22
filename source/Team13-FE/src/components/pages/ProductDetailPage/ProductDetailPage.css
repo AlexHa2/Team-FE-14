@@ -1,0 +1,39 @@
+
+
+
+.image-product-detail-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+
+.price-product-detail h4{
+    font-weight: bold;
+    font-size: x-large;
+    color: #2563EB;
+}
+
+.partial-cash-product-detail h4 {
+    font-weight: bold;
+    font-size: x-large;
+    color: #2563EB;
+}
+
+.address-product-detail{
+    display: flex;
+}
+
+.block-condition-product-detail{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #E2E8F0;
+    border-radius: 7px;
+}
+
+.block-condition-product-detail p{
+    padding: 9px 10px;
+    margin: 0;
+}

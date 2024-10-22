@@ -12,7 +12,7 @@ function Offcanva({ stateShow, handleClose, userLogin }) {
 
   return (
     <>
-      <Offcanvas show={stateShow} onHide={handleClose}>
+      <Offcanvas show={stateShow} onHide={handleClose} style={{borderTopRightRadius: "15px",borderBottomRightRadius: "15px"}}>
         <Offcanvas.Header closeButton style={{ padding: '0', paddingLeft: '5px', paddingRight: "10px" }}>
           <Offcanvas.Title>
             <div className='icon-image-logo-header-offcanvas'>
