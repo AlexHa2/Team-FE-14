@@ -2,15 +2,17 @@
 import LogoWeb from "../../../assets/logoWeb.jpg"
 import "./Header.css"
 import SearchIcon from '@mui/icons-material/Search';
-import { Link } from "react-router-dom"
+import { Link,useNavigate } from "react-router-dom"
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Avatar from "../../../assets/avatarUser.jpg"
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Offcanva from "../Offcanvas/Offcanvas";
+import { UserContextStore } from "../../../Context/UserContext";
 export default function Header() {
-    const [state, setState] = useState(true);
+    const navigate = useNavigate();
+    const {userState} = useContext(UserContextStore)
     const [stateShowOffcanvas,setStateShowOffcanvas] = useState(false)
 
     const handleShowOffcanvas = () => {
@@ -21,9 +23,12 @@ export default function Header() {
         setStateShowOffcanvas(false)
     }
 
+    const signup = () => {
+        navigate('/signup')
+    }
     return (
         <>
-        <Offcanva stateShow={stateShowOffcanvas} handleClose={handleCloseOffcanvas} userLogin={true}/>
+        <Offcanva stateShow={stateShowOffcanvas} handleClose={handleCloseOffcanvas} userLogin={userState.userLogin}/>
             <header className="container-header-client">
                 <div className="icon-responesive-header" onClick={handleShowOffcanvas}>
                     <div><DensityMediumIcon /></div>
@@ -42,13 +47,13 @@ export default function Header() {
                         </div>
                     </div>
                 </div>
-                {state ?
+                {!userState.userLogin ?
                     <div className="block-button-login-header">
                         <div className="button-login-header">
                             <p>Log in</p>
                         </div>
-                        <div className="button-Signup-header">
-                            <p>Sign up</p>
+                        <div className="button-Signup-header" onClick={signup}>
+                            <p>Sign up</p> 
                         </div>
                     </div>
                     : <div className="block-button-after-login">

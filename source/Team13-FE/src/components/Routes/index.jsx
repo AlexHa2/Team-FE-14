@@ -6,7 +6,7 @@ import OrderTrackingPage from "../pages/OrderTrackingPage/OrderTrackingPage.jsx"
 import OrderComplete from "../pages/OrderComplete/OrderComplete.jsx"
 import PolicyPage from "../pages/PolicyPage/PolicyPage.jsx"
 const PublicRoutes = [
-    {path:"/",component:Homepage,layout:null},
+    {path:"/*",component:Homepage,layout:null},
     {path:"/changepassword",component:ChangePassword,layout:null},
     {path:"/signup",component:SignupForm,layout:null},
     {path:"/product-detail",component:PreProductDetail,layout:null},
