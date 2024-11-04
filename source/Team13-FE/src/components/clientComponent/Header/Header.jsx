@@ -1,34 +1,47 @@
-
-import LogoWeb from "../../../assets/logoWeb.jpg"
-import "./Header.css"
-import SearchIcon from '@mui/icons-material/Search';
-import { Link,useNavigate } from "react-router-dom"
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import DensityMediumIcon from '@mui/icons-material/DensityMedium';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import Avatar from "../../../assets/avatarUser.jpg"
+import LogoWeb from "../../../assets/logoWeb.jpg";
+import "./Header.css";
+import SearchIcon from "@mui/icons-material/Search";
+import { Link, useNavigate } from "react-router-dom";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import DensityMediumIcon from "@mui/icons-material/DensityMedium";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import Avatar from "../../../assets/avatarUser.jpg";
 import { useContext, useState } from "react";
 import Offcanva from "../Offcanvas/Offcanvas";
 import { UserContextStore } from "../../../Context/UserContext";
+
 export default function Header() {
     const navigate = useNavigate();
-    const {userState} = useContext(UserContextStore)
-    const [stateShowOffcanvas,setStateShowOffcanvas] = useState(false)
+    const { userState } = useContext(UserContextStore);
+    const [stateShowOffcanvas, setStateShowOffcanvas] = useState(false);
 
     const handleShowOffcanvas = () => {
-        setStateShowOffcanvas(true)
-    }
+        setStateShowOffcanvas(true);
+    };
 
     const handleCloseOffcanvas = () => {
-        setStateShowOffcanvas(false)
-    }
+        setStateShowOffcanvas(false);
+    };
 
     const signup = () => {
-        navigate('/signup')
-    }
+        navigate('/signup');
+    };
+
+    const login = () => {
+        navigate('/login'); // Điều hướng tới trang Login
+    };
+
+    const handleMyListings = () => {
+        navigate('/my-listings'); // Điều hướng tới trang My Listings
+    };
+
+    const handleFavorite = () => {
+        navigate('/favorites'); // Điều hướng tới trang Favorites
+    };
+
     return (
         <>
-        <Offcanva stateShow={stateShowOffcanvas} handleClose={handleCloseOffcanvas} userLogin={userState.userLogin}/>
+            <Offcanva stateShow={stateShowOffcanvas} handleClose={handleCloseOffcanvas} userLogin={userState.userLogin} />
             <header className="container-header-client">
                 <div className="icon-responesive-header" onClick={handleShowOffcanvas}>
                     <div><DensityMediumIcon /></div>
@@ -39,31 +52,31 @@ export default function Header() {
                     </div>
                     <div className="block-search-header">
                         <div className="search-header">
-                            <input type="search" placeholder="what do you want to find">
-                            </input>
+                            <input type="search" placeholder="What do you want to find?" />
                         </div>
                         <div className="icon-search-header">
                             <div><SearchIcon /></div>
                         </div>
                     </div>
                 </div>
-                {!userState.userLogin ?
+                {!userState.userLogin ? (
                     <div className="block-button-login-header">
-                        <div className="button-login-header">
+                        <div className="button-login-header" onClick={login}> 
                             <p>Log in</p>
                         </div>
                         <div className="button-Signup-header" onClick={signup}>
-                            <p>Sign up</p> 
+                            <p>Sign up</p>
                         </div>
                     </div>
-                    : <div className="block-button-after-login">
-                        <div className="button-favorite-header-after-login">
+                ) : (
+                    <div className="block-button-after-login">
+                        <div className="button-favorite-header-after-login" onClick={handleFavorite}>
                             <div className="block-icon-items">
                                 <div className="block-button-after-login-header"><FavoriteBorderIcon /></div>
                                 <p>Favorite</p>
                             </div>
                         </div>
-                        <div className="button-my-listing-header">
+                        <div className="button-my-listing-header" onClick={handleMyListings}>
                             <div className="block-icon-items">
                                 <div className="block-button-after-login-header"><DensityMediumIcon /></div>
                                 <p>My listings</p>
@@ -72,19 +85,19 @@ export default function Header() {
                         <div className="button-add-my-listing-header">
                             <div className="block-icon-items" id="icon-add-new-header">
                                 <div className="block-button-after-login-header"><AddCircleOutlineIcon /></div>
-                                <p className="button-add-new-items-header">List a new items</p>
+                                <p className="button-add-new-items-header">List a new item</p>
                             </div>
                         </div>
                         <div className="button-view-profile-header">
                             <Link to="/">
-                                <div >
-                                    <img src={Avatar} width={55} height={55} alt="User Avatar">
-                                    </img>
+                                <div>
+                                    <img src={Avatar} width={55} height={55} alt="User Avatar" />
                                 </div>
                             </Link>
                         </div>
-                    </div>}
+                    </div>
+                )}
             </header>
         </>
-    )
+    );
 }
