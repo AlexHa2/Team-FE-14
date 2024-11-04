@@ -1,3 +1,4 @@
+
 import Homepage from "../pages/Homepage/Homepage";
 import ChangePassword from "../pages/ChangePasswordPage/ChangePassword.jsx";
 import SignupForm from "../pages/SignupPage/SignupForm.jsx";
@@ -23,6 +24,7 @@ const PublicRoutes = [
     { path: "/favorites", component: FavoritesPage, layout: null },
     { path: "/user-table", component: UserTable, layout: null }, 
 ];
+
 
 const PrivateRoutes = [
     // Các route cần bảo mật nếu có
