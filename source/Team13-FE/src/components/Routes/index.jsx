@@ -3,6 +3,7 @@ import ChangePassword from "../pages/ChangePasswordPage/ChangePassword.jsx"
 import SignupForm from "../pages/SignupPage/SignupForm.jsx"
 import ProfileSettings from "../pages/Profile/ProfileSetting.jsx"
 import EditProfile from"../pages/Profile/EditProfile.jsx"
+import AdminPage from "../pages/AdminPage/adminPage.jsx"
 
 
 const PublicRoutes = [
@@ -11,6 +12,7 @@ const PublicRoutes = [
     {path:"/signup",component:SignupForm,layout:null},
     {path:"/profilesetting",component:ProfileSettings,layout:null},
     {path:"/editprofile",component:EditProfile,layout:null},
+    {path:"/admin",component:AdminPage,layout:null},
 
 ]
 
