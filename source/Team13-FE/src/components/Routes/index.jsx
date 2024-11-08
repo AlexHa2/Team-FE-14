@@ -10,6 +10,8 @@ import LoginForm from "../pages/LoginPage/LoginForm.jsx";
 import MyListings from "../pages/MyListings/MyListings.jsx"; 
 import FavoritesPage from "../pages/FavoritesPage/FavoritesPage";
 import UserTable from "../pages/UserTable/UserTable"; // Import UserTable
+import ProfileSettings from "../pages/Profile/ProfileSetting.jsx";
+import EditProfile from "../pages/Profile/EditProfile.jsx"
 
 const PublicRoutes = [
     { path: "/*", component: Homepage, layout: null },
@@ -23,6 +25,8 @@ const PublicRoutes = [
     { path: "/my-listings", component: MyListings, layout: null },
     { path: "/favorites", component: FavoritesPage, layout: null },
     { path: "/user-table", component: UserTable, layout: null }, 
+    { path: "/profile", component: ProfileSettings, layout: null },
+    { path: "/edit-profile", component: EditProfile, layout: null }, 
 ];
 
 

@@ -89,7 +89,7 @@ export default function Header() {
                             </div>
                         </div>
                         <div className="button-view-profile-header">
-                            <Link to="/">
+                            <Link to="/profile">
                                 <div>
                                     <img src={Avatar} width={55} height={55} alt="User Avatar" />
                                 </div>
