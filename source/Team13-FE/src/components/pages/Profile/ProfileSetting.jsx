@@ -1,82 +1,168 @@
-import React, { useState } from 'react';
-import { Box, Button, Container, TextField, Avatar, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, Button, Container, Typography, TextField, Avatar } from '@mui/material';
+import { auth, provider } from '../../../config/firebaseConfig.js';
+import { signInWithPopup, onAuthStateChanged } from "firebase/auth";
 
 function ProfileSettings() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [mobilePhone, setMobilePhone] = useState('');
-  const [email, setEmail] = useState('example@gmail.com');
-  const [state, setState] = useState('');
+  const [email, setEmail] = useState('');
   const [profilePhoto, setProfilePhoto] = useState(null);
+  const [isEditing, setIsEditing] = useState(false); // Track edit state
+  const [tempFirstName, setTempFirstName] = useState(''); // Temporary values to hold changes
+  const [tempLastName, setTempLastName] = useState('');
 
-  const handleFileUpload = (event) => {
-    setProfilePhoto(URL.createObjectURL(event.target.files[0]));
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const [first, last] = user.displayName?.split(' ') || [];
+        setFirstName(first || '');
+        setLastName(last || '');
+        setEmail(user.email);
+        setProfilePhoto(user.photoURL);
+      }
+    });
+  }, []);
+
+  const handleGoogleSignIn = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        const [first, last] = user.displayName?.split(' ') || [];
+        setFirstName(first || '');
+        setLastName(last || '');
+        setEmail(user.email);
+        setProfilePhoto(user.photoURL);
+      })
+      .catch((error) => {
+        console.error("Error during sign-in:", error);
+      });
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+    setTempFirstName(firstName);
+    setTempLastName(lastName);
+  };
+
+  const handleSaveClick = () => {
+    setFirstName(tempFirstName);
+    setLastName(tempLastName);
+    setIsEditing(false);
+    // You can add logic here to save the changes to Firebase if needed
+  };
+
+  const handleCancelClick = () => {
+    setIsEditing(false);
   };
 
   return (
     <Container maxWidth="sm" sx={{ marginTop: 4 }}>
-      <Box sx={{ boxShadow: 3, padding: 3, borderRadius: 2, backgroundColor: 'white' }}>
-        <Typography variant="h6" gutterBottom>Profile settings</Typography>
-        
-        {/* Profile Form */}
-        <TextField
-          fullWidth
-          label="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          margin="normal"
-        />
-        <TextField
-          fullWidth
-          label="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          margin="normal"
-        />
-        <TextField
-          fullWidth
-          label="Mobile Phone"
-          value={mobilePhone}
-          onChange={(e) => setMobilePhone(e.target.value)}
-          margin="normal"
-        />
-        <TextField
-          fullWidth
-          label="Email Address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          margin="normal"
-          disabled
-        />
-        <TextField
-          fullWidth
-          label="State"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          margin="normal"
-        />
-
-        {/* Profile Photo */}
-        <Box sx={{ marginTop: 3 }}>
-          <Typography variant="h6" gutterBottom>Profile photo</Typography>
-          <Avatar src={profilePhoto} sx={{ width: 100, height: 100, marginBottom: 2 }} />
-          <Button variant="contained" component="label">
-            Upload new
-            <input type="file" hidden onChange={handleFileUpload} />
-          </Button>
+      {/* Profile Settings */}
+      <Box sx={{ boxShadow: 3, padding: 3, borderRadius: 2, backgroundColor: 'white', marginBottom: 3 }}>
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Typography variant="h6" fontWeight="bold">Profile settings</Typography>
+          {isEditing ? (
+            <>
+              <Button variant="contained" size="small" onClick={handleSaveClick}>Save</Button>
+              <Button variant="outlined" size="small" onClick={handleCancelClick} sx={{ marginLeft: 1 }}>Cancel</Button>
+            </>
+          ) : (
+            <Button variant="outlined" size="small" onClick={handleEditClick}>✏️ Edit</Button>
+          )}
         </Box>
-
-        {/* Password Section */}
-        <Box sx={{ marginTop: 3 }}>
-          <Typography variant="h6" gutterBottom>Password</Typography>
-          <Button variant="contained">Change password</Button>
-        </Box>
-
-        {/* Logout Button */}
-        <Box sx={{ marginTop: 3 }}>
-          <Button variant="outlined" color="error" fullWidth>Logout</Button>
+        <Box mt={2}>
+          <Typography variant="body1">First name</Typography>
+          <TextField
+            value={isEditing ? tempFirstName : firstName}
+            onChange={(e) => setTempFirstName(e.target.value)}
+            fullWidth
+            disabled={!isEditing}
+            variant="outlined"
+            size="small"
+            sx={{ marginBottom: 2 }}
+          />
+          
+          <Typography variant="body1">Last name</Typography>
+          <TextField
+            value={isEditing ? tempLastName : lastName}
+            onChange={(e) => setTempLastName(e.target.value)}
+            fullWidth
+            disabled={!isEditing}
+            variant="outlined"
+            size="small"
+            sx={{ marginBottom: 2 }}
+          />
+          
+          <Typography variant="body1">Mobile phone</Typography>
+          <TextField
+            placeholder="Not provided"
+            fullWidth
+            disabled
+            variant="outlined"
+            size="small"
+            sx={{ marginBottom: 2 }}
+          />
+          
+          <Typography variant="body1">Email address</Typography>
+          <TextField
+            value={email}
+            fullWidth
+            disabled
+            variant="outlined"
+            size="small"
+            sx={{ marginBottom: 2 }}
+          />
+          
+          <Typography variant="body1">State</Typography>
+          <TextField
+            placeholder="--------"
+            fullWidth
+            disabled
+            variant="outlined"
+            size="small"
+          />
         </Box>
       </Box>
+
+      {/* Profile Photo */}
+      <Box sx={{ boxShadow: 3, padding: 3, borderRadius: 2, backgroundColor: 'white', marginBottom: 3 }}>
+        <Typography variant="h6" fontWeight="bold">Profile photo</Typography>
+        <Box display="flex" alignItems="center" mt={2}>
+          <Avatar src={profilePhoto} sx={{ width: 100, height: 100, marginRight: 2 }} />
+          <Button variant="outlined" component="label">Upload new
+            <input type="file" hidden />
+          </Button>
+        </Box>
+        <Button variant="contained" sx={{ marginTop: 2 }}>Save</Button>
+      </Box>
+
+      {/* Password */}
+      <Box sx={{ boxShadow: 3, padding: 3, borderRadius: 2, backgroundColor: 'white', marginBottom: 3 }}>
+        <Typography variant="h6" fontWeight="bold">Password</Typography>
+        <Box mt={2}>
+          <TextField
+            placeholder="Current password"
+            fullWidth
+            type="password"
+            disabled
+            variant="outlined"
+            size="small"
+          />
+          <Button variant="outlined" sx={{ marginTop: 2 }}>Change password</Button>
+        </Box>
+      </Box>
+
+      {/* Logout Button */}
+      <Button
+        variant="contained"
+        color="error"
+        fullWidth
+        onClick={() => auth.signOut()}
+        sx={{ marginTop: 2 }}
+      >
+        Logout
+      </Button>
     </Container>
   );
 }
