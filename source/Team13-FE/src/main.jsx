@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom"
 import UserContext from "../src/Context/UserContext.jsx"
 import { Provider } from 'react-redux';
 import store from '../src/components/redux/Store.jsx';
+import "./Style/GlobalStyle.css"
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
