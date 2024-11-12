@@ -26,9 +26,9 @@ const AdminPage = () => {
 
 
     return (
-        <Box sx={{ display: 'flex' }}>
+         <Box >
             
-            <Box sx={{ width: '250px', bgcolor: '#f5f5f5', height: '100vh', paddingTop: '20px' }}>
+             {/* <Box sx={{ width: '250px', bgcolor: '#f5f5f5', height: '100vh', paddingTop: '20px' }}>
             <List>
                     <ListItem>
                         <ListItemText primary="Dashboard" primaryTypographyProps={{ fontWeight: 'bold', fontSize: 20 }} />
@@ -62,10 +62,10 @@ const AdminPage = () => {
                         <ListItemText primary="Settings" />
                     </ListItem>
                 </List>
-            </Box>
+            </Box>  */}
 
             
-            <Container>
+             <Container>
                 {showItemsList && (
                     <>
                         <Typography variant="h4" gutterBottom sx={{ marginTop: 3 }}>Items List Information</Typography>
@@ -104,8 +104,8 @@ const AdminPage = () => {
                         </TableContainer>
                     </>
                 )}
-            </Container>
-        </Box>
+            </Container> 
+         </Box>
     );
 };
 

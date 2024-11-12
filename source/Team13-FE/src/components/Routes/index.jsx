@@ -34,7 +34,7 @@ const PublicRoutes = [
     { path: "/user-table", component: UserTable, layout: null }, 
     {path:"/profilesetting",component:ProfileSettings,layout:null},
     {path:"/editprofile",component:EditProfile,layout:null},
-    {path:"/admin",component:AdminPage,layout:null},
+    {path:"/admin",component:AdminPage,layout:'admin'},
 ];
 
 
