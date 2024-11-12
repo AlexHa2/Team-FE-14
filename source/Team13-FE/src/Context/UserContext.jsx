@@ -4,8 +4,8 @@ const  UserContextStore = React.createContext()
 import { useState } from 'react'
 export default function UserContext({ children }) {
     const [userState, setUserState] = useState({
-        userInfor: {},
-        userLogin:false
+        userInfor:  JSON.parse(localStorage.getItem("userInfor")) || {},// muốn lấy là phải parse về thành object
+        userLogin:  JSON.parse(localStorage.getItem("userLogin")) || false
     })
 
     const handleUserLogin = ({ user }) => {
@@ -13,6 +13,9 @@ export default function UserContext({ children }) {
             userInfor: user,
             userLogin:true
         })
+
+        localStorage.setItem("userInfor",JSON.stringify(user))//moi lan lưu là phải lưu kiểu string
+        localStorage.setItem("userLogin",JSON.stringify(true))
     }
 
     const handleUserLogout = () => {

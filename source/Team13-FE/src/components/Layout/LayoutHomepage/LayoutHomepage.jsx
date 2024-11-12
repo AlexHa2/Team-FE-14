@@ -7,7 +7,9 @@ export default function LayoutHomepage({ children }) {
         <>
             <Container maxWidth="xl">
                 <Header />
+                <div >
                 {children}
+                </div>
             </Container>
             <Footer />
         </>

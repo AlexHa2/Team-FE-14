@@ -1,4 +1,10 @@
 
+
+
+
+
+
+import AdminPage from "../pages/AdminPage/adminPage.jsx"
 import Homepage from "../pages/Homepage/Homepage";
 import ChangePassword from "../pages/ChangePasswordPage/ChangePassword.jsx";
 import SignupForm from "../pages/SignupPage/SignupForm.jsx";
@@ -14,6 +20,7 @@ import ProfileSettings from "../pages/Profile/ProfileSetting.jsx";
 import EditProfile from "../pages/Profile/EditProfile.jsx"
 
 const PublicRoutes = [
+
     { path: "/*", component: Homepage, layout: null },
     { path: "/changepassword", component: ChangePassword, layout: null },
     { path: "/signup", component: SignupForm, layout: null },
@@ -25,9 +32,11 @@ const PublicRoutes = [
     { path: "/my-listings", component: MyListings, layout: null },
     { path: "/favorites", component: FavoritesPage, layout: null },
     { path: "/user-table", component: UserTable, layout: null }, 
-    { path: "/profile", component: ProfileSettings, layout: null },
-    { path: "/edit-profile", component: EditProfile, layout: null }, 
+    {path:"/profilesetting",component:ProfileSettings,layout:null},
+    {path:"/editprofile",component:EditProfile,layout:null},
+    {path:"/admin",component:AdminPage,layout:null},
 ];
+
 
 
 const PrivateRoutes = [
