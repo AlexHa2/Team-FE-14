@@ -1,0 +1,55 @@
+.block-Select-item-to-barter-offcanvas{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.charactor-Select-item-to-barter-offcanvas{
+    font-size: medium;
+    /* font-weight: 500; */
+}
+
+.Button-Select-item-to-barter-offcanvas{
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    height: 40px;
+    background-color: #2563EB;
+    border-radius: 7px;
+    color: aliceblue;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+}
+
+.Button-Select-item-to-barter-offcanvas:hover{
+    background-color: #032E89;
+    transition: background-color 0.5s linear, transform 0.3s ;
+    
+}
+
+.icon-Select-item-to-barter-offcanvas{
+    padding-bottom: 2px;
+}
+
+
+@media (max-width: 1000px) {
+    .offcanvas-responsive {
+      width: 90% !important; /* Chiếm phần lớn màn hình trên mobile */
+      border-radius: 10px; /* Giảm radius cho thiết kế nhỏ hơn */
+    }
+  
+    .header-offcanvas-Select-item-to-barter {
+      font-size: 18px; /* Giảm kích cỡ font cho header */
+    }
+  
+    .charactor-button-Select-item-to-barter-offcanvas {
+      font-size: 14px;
+    }
+  
+    .icon-Select-item-to-barter-offcanvas svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+

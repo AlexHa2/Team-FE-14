@@ -1,0 +1,75 @@
+.block-icon-tracking-order-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.block-button-order-tracking{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.charactor-tracking-order-detail{
+    font-size: larger;
+    font-weight: bold;
+}
+
+#button-return-at-tracking-order{
+    padding: 5px 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #3498DB;
+    color: aliceblue;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+#button-return-at-tracking-order:hover{
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.block-order-information-and-order-address p{
+    margin: 0;
+    margin: 3px 0;
+    font-weight: 400;
+}
+
+@media screen and (max-width: 745px) { 
+    .order-place-image img{
+        width: 50px;
+    }
+
+    .order-place-arrow-image img{
+        width: 25px;
+    }
+
+    .order-shipping-image img{
+        width: 50px;
+    }
+
+    .order-delivered-image img{
+        width: 50px;
+    }
+}
+
+@media screen and (max-width: 350) {
+    .order-place-image img{
+        width: 20px;
+    }
+
+    .order-place-arrow-image img{
+        width: 10px;
+    }
+
+    .order-shipping-image img{
+        width: 20px;
+    }
+
+    .order-delivered-image img{
+        width: 20px;
+    }
+ }

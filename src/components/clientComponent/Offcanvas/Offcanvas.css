@@ -1,0 +1,35 @@
+.block-icon-offcanvas{
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+}
+
+
+
+.icon-facebook-offcanvas:hover{
+    color: #8CACF3;
+}
+
+.icon-istargram-offcanvas:hover{
+    color: #8CACF3;
+}
+
+.block-icon-offcanvas-profile-listing-favorite{
+    display: flex;
+}
+
+.block-icon-offcanvas-profile-listing-favorite p{
+    margin-left: 15px;
+}
+
+.block-icon-offcanvas-profile-listing-favorite:hover{
+    cursor: pointer;
+    transition: filter 0.3s ease;
+    filter:  blur(0.5px);
+}
+
+.offcanvas-contact-us:hover{
+    cursor: pointer;
+    transition: filter 0.3s ease;
+    filter:  blur(0.5px);
+}

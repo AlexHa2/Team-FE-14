@@ -1,0 +1,212 @@
+.container-header-client {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-Logo-header {
+    display: flex;
+}
+
+
+
+.block-search-header {
+    display: flex;
+}
+
+.search-header {
+    height: 35px;
+    width: 375px;
+    border: 1px solid #cdd0d4;
+    margin: auto 0;
+    border-radius: 7px;
+}
+
+.search-header input {
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    height: 95%;
+    width: 100%;
+    /* margin: 0 5px; */
+    padding: 5px 10px;
+    border-radius: 7px;
+}
+
+.icon-search-header {
+    margin: auto 0;
+    margin-left: 5px;
+    border: 1px solid #cdd0d4;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+}
+
+/* this is quired condition user login or not,if did do comment display none */
+.block-button-login-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* display: none; */
+}
+
+.button-login-header {
+
+    height: 35px;
+    width: 80px;
+    /* border: 1px solid black; */
+    margin-right: 10px;
+    border-radius: 7px;
+
+}
+
+.button-login-header p {
+    margin: 0;
+    padding-top: 5px;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.button-login-header:hover{
+    background-color: #dde0e5;
+}
+
+.button-Signup-header {
+
+    height: 35px;
+    width: 80px;
+    /* border: 1px solid black; */
+    border-radius: 7px;
+    background-color: #2563EB;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.button-Signup-header p{
+    margin: 0;
+    padding-top: 5px;
+    padding-left: 15px;
+}
+
+.button-Signup-header:hover{
+    background-color: #4E6CAC;
+    color: #BBC7DF;
+    transition: background-color 0.5s linear, transform 0.3s 
+}
+
+.block-button-after-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+   
+
+}
+
+.block-button-after-login div div{
+    display: flex;
+    position: relative;
+}
+
+.block-button-after-login div div p{
+    margin: 0;
+    margin-left: 10px;
+}
+
+.block-icon-items{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 40px;
+}
+
+.block-icon-items:hover{
+    border-radius: 7px;
+    box-shadow: 2px 3px 15px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.5s linear, transform 0.3s 
+}
+
+#icon-add-new-header{
+    height: 40px;
+    width: 170px;
+    border-radius: 7px;
+    background-color: #2563EB;
+    color: azure;
+}
+
+#icon-add-new-header:hover{
+    background-color: #032E89;
+    color: azure;
+    transition: background-color 0.5s linear, transform 0.3s 
+}
+
+.icon-responesive-header{
+    display: none;
+}
+
+@media (max-width: 1025px) {
+    .block-icon-items{
+        height: 40px;
+        width: 100px;
+    }
+    .block-button-after-login-header{
+        height: 20px !important;
+        width: 20px !important;
+        
+    }
+}  
+
+
+
+@media (max-width: 765px){
+    .block-search-header{
+        display: none;
+        transition: display 0.5s linear, transform 0.3s;
+    }
+
+    .button-favorite-header-after-login{
+        display: none;
+        transition: display 0.5s linear, transform 0.3s;
+    }
+
+    .button-my-listing-header{
+        display: none;
+        transition: display 0.5s linear, transform 0.3s;
+    }
+
+    .button-view-profile-header{
+        display: none;
+        transition: display 0.5s linear, transform 0.3s;
+    }
+
+    .icon-responesive-header{
+        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .container-header-client{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #logo-header-homepage{
+        height: auto;
+        width: 100px;
+    }
+
+    .button-add-my-listing-header{
+        display: block;
+        transition: display 0.5s linear, transform 0.3s;
+    }
+
+
+
+   
+}
