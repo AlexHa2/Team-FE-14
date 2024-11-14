@@ -31,7 +31,7 @@ const PublicRoutes = [
     { path: "/login", component: LoginForm, layout: null },
     { path: "/my-listings", component: MyListings, layout: null },
     { path: "/favorites", component: FavoritesPage, layout: null },
-    { path: "/user-table", component: UserTable, layout: null }, 
+    { path: "/user-table", component: UserTable, layout: 'admin' }, 
     {path:"/profilesetting",component:ProfileSettings,layout:null},
     {path:"/editprofile",component:EditProfile,layout:null},
     {path:"/admin",component:AdminPage,layout:'admin'},
