@@ -4,6 +4,7 @@
 
 
 
+
 import AdminPage from "../pages/AdminPage/adminPage.jsx"
 import Homepage from "../pages/Homepage/Homepage";
 import ChangePassword from "../pages/ChangePasswordPage/ChangePassword.jsx";
@@ -18,13 +19,14 @@ import FavoritesPage from "../pages/FavoritesPage/FavoritesPage";
 import UserTable from "../pages/UserTable/UserTable"; // Import UserTable
 import ProfileSettings from "../pages/Profile/ProfileSetting.jsx";
 import EditProfile from "../pages/Profile/EditProfile.jsx"
-
+import Pagenotfound from "../pages/PageNotFound/PageNotFound.jsx"
 const PublicRoutes = [
+
 
     { path: "/*", component: Homepage, layout: null },
     { path: "/changepassword", component: ChangePassword, layout: null },
     { path: "/signup", component: SignupForm, layout: null },
-    { path: "/product-detail", component: PreProductDetail, layout: null },
+    { path: "/product-detail/:id", component: PreProductDetail, layout: null },
     { path: "/order-tracking", component: OrderTrackingPage, layout: null },
     { path: "/order-complete", component: OrderComplete, layout: null },
     { path: "/policy", component: PolicyPage, layout: null },
@@ -35,6 +37,7 @@ const PublicRoutes = [
     {path:"/profilesetting",component:ProfileSettings,layout:null},
     {path:"/editprofile",component:EditProfile,layout:null},
     {path:"/admin",component:AdminPage,layout:'admin'},
+    // {path:"*",component:Pagenotfound,layout:'none'},
 ];
 
 

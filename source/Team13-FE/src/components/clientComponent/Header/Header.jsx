@@ -15,6 +15,8 @@ export default function Header() {
     const { userState } = useContext(UserContextStore);
     const [stateShowOffcanvas, setStateShowOffcanvas] = useState(false);
 
+    const [searchQuery, setSearchQuery] = useState(""); // New state for search query
+
     const handleShowOffcanvas = () => {
         setStateShowOffcanvas(true);
     };
@@ -27,6 +29,7 @@ export default function Header() {
         navigate('/signup');
     };
 
+
     const login = () => {
         navigate('/login'); // Điều hướng tới trang Login
     };
@@ -37,6 +40,13 @@ export default function Header() {
 
     const handleFavorite = () => {
         navigate('/favorites'); // Điều hướng tới trang Favorites
+    }
+    const handleSearch = (event) => {
+        if (event.key === 'Enter') {
+            // Navigate to items page with search query
+            navigate(`/?search=${searchQuery}`);
+        }
+
     };
 
     return (
@@ -52,14 +62,21 @@ export default function Header() {
                     </div>
                     <div className="block-search-header">
                         <div className="search-header">
-                            <input type="search" placeholder="What do you want to find?" />
+                            <input 
+                                type="search" 
+                                placeholder="What do you want to find" 
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onKeyPress={handleSearch} // Trigger search on "Enter" key
+                            />
                         </div>
-                        <div className="icon-search-header">
+                        <div className="icon-search-header" onClick={() => navigate(`/?search=${searchQuery}`)}>
                             <div><SearchIcon /></div>
                         </div>
                     </div>
                 </div>
                 {!userState.userLogin ? (
+
                     <div className="block-button-login-header">
                         <div className="button-login-header" onClick={login}> 
                             <p>Log in</p>

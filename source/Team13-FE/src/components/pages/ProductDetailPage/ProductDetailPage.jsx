@@ -34,30 +34,30 @@ export default function ProductDetailPage({ Product, UserLogin }) {
                 <Row>
                     <Col xs={12} md={12} lg={6}>
                         <div className="image-product-detail-page" >
-                            <img src={Product.image} alt="product-image" width={500} id="image-product-detail" />
+                            <img src={Product.imageSrc} alt="product-image" width={500} id="image-product-detail" />
                         </div>
                     </Col>
                     <Col xs={12} md={12} lg={6}>
                         <div className="block-detail-infor-proudct">
                             <div className="price-product-detail">
-                                <h4>${Product.price}</h4>
+                                <h4>${Product.itemValue}</h4>
                             </div>
                             <div className="partial-cash-product-detail">
                                 <h4>💸 Partial Cash</h4>
                             </div>
-                            <h4 style={{ fontWeight: "bold", fontSize: 'x-large' }}>{Product.productName}</h4>
+                            <h4 style={{ fontWeight: "bold", fontSize: 'x-large' }}>{Product.itemName}</h4>
                             <div className="address-product-detail">
                                 <div><LocationOnIcon /></div>
-                                <p style={{ fontWeight: "500" }}>{Product.address}</p>
+                                <p style={{ fontWeight: "500" }}>{Product.itemLocation}</p>
                             </div>
                             <div style={{ color: "#64748B" }}>
-                                <p>New {Product.productName}</p>
+                                <p>New {Product.itemName}</p>
                             </div >
                             <div className="block-condition-product-detail">
                                 <p style={{ color: "#64748B" }}>
                                     Condition:
                                 </p>
-                                <p style={{ fontWeight: "600" }}>{Product.condition}</p>
+                                <p style={{ fontWeight: "600" }}>New</p>
                             </div>
                             <div onClick={handleShowShowButtonListimes}>
                                 <YourOffer useLogin={UserLogin} />
