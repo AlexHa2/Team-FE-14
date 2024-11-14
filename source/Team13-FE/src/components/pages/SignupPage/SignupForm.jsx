@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { TextField, Button, Checkbox, FormControlLabel, Typography, Box } from "@mui/material";
 import GoogleIcon from '@mui/icons-material/Google';
-
+import { auth, provider } from '../../../config/firebaseConfig.js';
+import { signInWithPopup } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { UserContextStore } from "../../../Context/UserContext.jsx";
 const SignupForm = () => {
+  const [value, setValue] = useState('');
+  const navigate = useNavigate(); // Initialize the navigate function
+  const { handleUserLogin } = useContext(UserContextStore)
+
+  const handleClick = () => {
+    signInWithPopup(auth, provider).then((data) => {
+      setValue(data.user.email);
+      localStorage.setItem("email", data.user.email);
+      console.log(data);
+      handleUserLogin({ user: { userName: data.user.displayName, userEmail: data.user.email } })
+      // Redirect to homepage after successful sign-in
+      navigate('/homepage');  // Adjust this path to your homepage route
+    }).catch((error) => {
+      console.error("Error signing in: ", error);
+    });
+  };
+
+  useEffect(() => {
+    setValue(localStorage.getItem('email'));
+  }, []);
+
   return (
-  //   <div>
-  //   <h1>This is a test</h1>
-  // </div>
     <Box
       display="flex"
       flexDirection="column"
@@ -18,14 +39,15 @@ const SignupForm = () => {
         Let's get your account set up
       </Typography>
 
-      { <Button
+      <Button
+        onClick={handleClick}
         variant="contained"
         startIcon={<GoogleIcon />}
         sx={{ marginBottom: "20px", backgroundColor: "#4285F4" }}
         fullWidth
       >
         Sign up with Google
-      </Button> }
+      </Button>
 
       <Typography variant="body2" sx={{ marginBottom: "20px" }}>
         Or, sign up with your email
@@ -57,9 +79,8 @@ const SignupForm = () => {
         Already have an account? <a href="/login">Log in</a>
       </Typography>
     </Box>
-    
   );
-  
 };
 
 export default SignupForm;
+

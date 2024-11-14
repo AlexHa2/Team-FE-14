@@ -1,0 +1,192 @@
+/* Container cho phần tiêu đề và nút */
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Đẩy nút sang bên phải */
+    align-items: center;
+    margin-bottom: 16px; /* Khoảng cách giữa header và các thẻ */
+}
+
+/* CSS cho tiêu đề "All offer" */
+.all-offer-title {
+    font-size: 24px;
+    font-weight: normal;
+    color: #333;
+}
+
+/* CSS cho nút "+ List a new item" */
+.list-new-item-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.list-new-item-button:hover {
+    background-color: #0056b3;
+}
+
+/* Container chính cho các thẻ */
+.items-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Mỗi hàng có 3 thẻ */
+    gap: 45px 30px; /* Khoảng cách giữa các thẻ (32px dọc, 16px ngang) */
+    padding: 16px;
+    justify-content: center; /* Căn giữa các thẻ theo chiều ngang */
+    max-width: 1200px; /* Giới hạn chiều rộng để thẻ gần nhau hơn */
+    margin: 0 auto; /* Căn giữa container trên trang */
+}
+.offers-container {
+    padding: 16px; /* Adjust to center text and container if needed */
+}
+
+.all-offer-title {
+    font-size: 24px; /* Size of the "All offer" text */
+    font-weight: bold; /* Bold font */
+    margin-bottom: 16px; /* Space between title and the first row of cards */
+    color: #333; /* Text color */
+    text-align: left; /* Center align */
+}
+
+
+/* CSS cho từng thẻ */
+.item-card {
+    display: flex;
+    flex-direction: column;
+    width: 377px; /* Đảm bảo kích thước cố định cho thẻ */
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.item-card:hover {
+    transform: translateY(-1px); /* Nhấn thẻ lên một chút khi hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); /* Bóng đổ mạnh hơn khi hover */
+}
+
+.item-image-section {
+    display: flex;
+    position: relative;
+}
+
+.item-image {
+    width: 50%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.item-owner {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+}
+
+.item-offer-icon-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #e0e0e0;
+}
+
+.offer-icon {
+    background-color: #6f42c1;
+    color: #fff;
+    font-size: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.item-offer-text {
+    background-color: #6f42c1;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.item-details {
+    padding: 8px 16px;
+    color: #333;
+    font-size: 14px;
+}
+
+.item-value {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.item-description {
+    color: #666;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-location {
+    color: #888;
+}
+
+/* Center the pagination container */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Style for pagination buttons */
+.page-button {
+    background-color: #007bff; /* Blue background */
+    color: #fff; /* White text */
+    width: 40px; /* Width for circular shape */
+    height: 40px; /* Height for circular shape */
+    margin: 0 5px;
+    border: none;
+    border-radius: 50%; /* Circular shape */
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.1); /* Scale up for a transition effect */
+}
+
+.page-button.active {
+    background-color: #0056b3; /* Different color for the active button */
+    font-weight: bold;
+}
+

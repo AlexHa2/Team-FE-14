@@ -1,12 +1,11 @@
-
+import React from "react";
+import Items  from '../../Items/Items';
 
 
 export default function Homepage() {
-
-     
   return (
-  <>
-    <h1>Homepage</h1>
-  </>
-  )
+    <div>
+      <Items />
+    </div>
+  );
 }

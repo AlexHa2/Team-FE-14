@@ -1,0 +1,70 @@
+/* Container cho swiper */
+.category-icons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    position: relative;
+    width: 95vw; /* Chiếm toàn bộ chiều rộng màn hình */
+    left: 50%; /* Căn giữa */
+    transform: translateX(-50%); /* Căn giữa */
+    overflow: hidden; /* Ngăn tràn */
+}
+
+/* Cài đặt cho mỗi icon trong swiper */
+.category-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 70px; /* Độ rộng cố định cho mỗi biểu tượng */
+    margin: 0 15px; /* Khoảng cách nhỏ giữa các biểu tượng */
+}
+
+/* Vòng tròn nền cho mỗi biểu tượng danh mục */
+.icon-circle {
+    width: 81px;
+    height: 81px;
+    border-radius: 50%;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+/* Tăng nhẹ kích thước khi hover vào icon */
+.icon-circle:hover {
+    transform: scale(1.05);
+}
+
+/* Hình ảnh biểu tượng bên trong vòng tròn */
+.category-image {
+    width: 50%; /* Điều chỉnh kích thước hình ảnh để vừa với khung tròn */
+    height: 50%; /* Giữ tỷ lệ hình ảnh và phù hợp với vòng tròn */
+    object-fit: cover;
+    border-radius: 0%; /* Làm tròn hình ảnh bên trong */
+}
+
+/* Nhãn văn bản dưới mỗi biểu tượng */
+.category-label {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Loại bỏ các nút điều hướng Swiper */
+.swiper-button-prev,
+.swiper-button-next {
+    display: none;
+}
+
+/* Điều chỉnh các slide để tránh tràn */
+.swiper-slide {
+    overflow: hidden;
+    width: auto; /* Mỗi slide tự điều chỉnh dựa trên kích thước icon */
+}

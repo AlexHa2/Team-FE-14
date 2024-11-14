@@ -4,7 +4,12 @@ import InstargamIcon from "../../../assets/instargamIcon.jpg"
 import FaceBookIcon from "../../../assets/IconFaceBook.jpg"
 import { Container } from "@mui/material"
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Link, useNavigate } from "react-router-dom"
 export default function Footer() {
+  const navigate = useNavigate()
+  const handleLogiRouter = () => {
+    navigate("/")
+  }
   return (
     <>
       <div style={{ background: "#000000" }}>
@@ -12,7 +17,7 @@ export default function Footer() {
           <Container maxWidth="xl">
               <div className="block-footer-content-above">
                 <div className="footer-content-logo">
-                  <div>
+                  <div onClick={handleLogiRouter}>
                     <img src={FooterLogo} alt="logoFooter" width={100} height={100} />
                   </div>
                   <div className="content-logo-footer">
@@ -30,28 +35,28 @@ export default function Footer() {
                   </div>
                 </div>
                 <div className="block-footer-contend-detail">
-                  <div className="footer-content-about-us">
+                  <div className="footer-content-about-us" style={{marginTop:"10px"}}>
                     <h2>Learn about us</h2>
-                    <p>About</p>
-                    <p>Contact</p>
-                    <p>FAQs</p>
+                    <p style={{cursor:"pointer"}}>About</p>
+                    <p style={{cursor:"pointer"}}>Contact</p>
+                    <p style={{cursor:"pointer"}}>FAQs</p>
                   </div>
-                  <div className="footer-content-company">
+                  <div className="footer-content-company" style={{marginTop:"10px"}}>
                     <h2>Company</h2>
-                    <p>BLOG</p>
-                    <p>Privacy & Policy</p>
-                    <p>Terms & Conditions</p>
+                    <p style={{cursor:"pointer"}}>BLOG</p>
+                    <Link to={"/policy"} style={{cursor:"pointer",color:'white',textDecoration:"none"}}><p>Privacy & Policy</p></Link>
+                    <p style={{cursor:"pointer"}}>Terms & Conditions</p>
                   </div>
                 </div>
               </div>
           </Container>
-          <hr />
-          <Container maxWidth="xl">
-            <div className="block-footer-content-below">
-              <div className="content-left-footer-below">
+          <hr style={{color:"white"}}/>
+          <Container maxWidth="xl" >
+            <div className="block-footer-content-below" >
+              <div className="content-left-footer-below" >
                 <p>© All Rights Reserved | 2024 - www.doi.com</p>
               </div>
-              <div className="content-right-footer-below">
+              <div className="content-right-footer-below" >
                 <p>One Studio</p>
               </div>
             </div>

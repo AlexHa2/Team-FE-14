@@ -1,0 +1,16 @@
+.block-content-policy h2 {
+    font-weight: bold;
+}
+
+.block-content-policy h1 {
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.block-content-policy p {
+    font-size: large;
+}
+
+.block-content-policy{
+    padding: 30px 40px
+}
