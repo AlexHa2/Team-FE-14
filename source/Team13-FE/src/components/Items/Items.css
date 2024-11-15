@@ -190,3 +190,19 @@
     font-weight: bold;
 }
 
+/* Responsive cho danh sách các thẻ Items */
+@media (max-width: 1024px) {
+    .items-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 thẻ trên một hàng */
+    }
+}
+
+@media (max-width: 768px) {
+    .items-container {
+        grid-template-columns: repeat(1, 1fr); /* 1 thẻ trên một hàng */
+    }
+
+    .item-card {
+        width: 90vw; /* Giảm độ rộng của thẻ trên màn hình nhỏ */
+    }
+}

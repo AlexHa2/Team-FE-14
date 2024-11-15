@@ -68,3 +68,22 @@
     overflow: hidden;
     width: auto; /* Mỗi slide tự điều chỉnh dựa trên kích thước icon */
 }
+
+/* Responsive cho thanh Category Icons */
+@media (max-width: 768px) {
+    .category-icons-container {
+        width: 100vw; /* Giãn toàn bộ chiều rộng màn hình */
+        padding: 0 10px; /* Thêm khoảng cách hai bên */
+    }
+
+    .category-icon {
+        width: 60px; /* Thu nhỏ icon */
+        margin: 0 10px; /* Giảm khoảng cách giữa các icon */
+    }
+
+    .icon-circle {
+        width: 60px;
+        height: 60px;
+    }
+}
+
