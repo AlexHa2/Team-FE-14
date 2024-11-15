@@ -34,7 +34,7 @@ export default function ProductDetailPage({ Product, UserLogin }) {
                 <Row>
                     <Col xs={12} md={12} lg={6}>
                         <div className="image-product-detail-page" >
-                            <img src={Product.imageSrc} alt="product-image" width={500} id="image-product-detail" />
+                            <img src={Product.imageSrc} alt="product-image" width={500} height={600} id="image-product-detail" />
                         </div>
                     </Col>
                     <Col xs={12} md={12} lg={6}>

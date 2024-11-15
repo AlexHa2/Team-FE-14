@@ -8,11 +8,14 @@ import LayoutHomepage from './components/Layout/LayoutHomepage/LayoutHomepage';
 import LayoutAdmin from './components/Layout/LayoutAdmin/LayoutAdmin';
 
 
+import { Suspense } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import PageNotFound from './components/pages/PageNotFound/PageNotFound';
-import { Fragment } from 'react';
+import Loadingpage from './components/pages/Loadingpage/Loadingpage.jsx';
+
+
 function App() {
+
   return (
     <>
       <ToastContainer />
@@ -29,12 +32,15 @@ function App() {
             // console.log("something",route.path)
             return (<Route key={index} path={route.path} element={
               <Layout>
+                <Suspense fallback={<Loadingpage/>}>
                 <Page />
+                </Suspense>
               </Layout>
             } />)
           })
         }
-        <Route exact path='*' element={<PageNotFound />} />
+        {/* <Route exact path='*' element={<Navigate to={"/admin"}/>} /> */}
+        <Route exact path='/loading' element={<Loadingpage/>}/> 
       </Routes>
     </>
 

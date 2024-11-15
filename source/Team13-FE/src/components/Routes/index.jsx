@@ -1,6 +1,6 @@
 
 
-
+import React from "react";
 
 
 
@@ -9,7 +9,6 @@ import AdminPage from "../pages/AdminPage/adminPage.jsx"
 import Homepage from "../pages/Homepage/Homepage";
 import ChangePassword from "../pages/ChangePasswordPage/ChangePassword.jsx";
 import SignupForm from "../pages/SignupPage/SignupForm.jsx";
-import PreProductDetail from "../pages/ProductDetailPage/PreProductDetailPage.jsx";
 import OrderTrackingPage from "../pages/OrderTrackingPage/OrderTrackingPage.jsx";
 import OrderComplete from "../pages/OrderComplete/OrderComplete.jsx";
 import PolicyPage from "../pages/PolicyPage/PolicyPage.jsx";
@@ -20,6 +19,10 @@ import UserTable from "../pages/UserTable/UserTable"; // Import UserTable
 import ProfileSettings from "../pages/Profile/ProfileSetting.jsx";
 import EditProfile from "../pages/Profile/EditProfile.jsx"
 import Pagenotfound from "../pages/PageNotFound/PageNotFound.jsx"
+
+const PreProductDetail =  React.lazy(() => import("../pages/ProductDetailPage/PreProductDetailPage.jsx"))
+
+
 const PublicRoutes = [
 
 
@@ -37,7 +40,7 @@ const PublicRoutes = [
     {path:"/profilesetting",component:ProfileSettings,layout:null},
     {path:"/editprofile",component:EditProfile,layout:null},
     {path:"/admin",component:AdminPage,layout:'admin'},
-    // {path:"*",component:Pagenotfound,layout:'none'},
+    {path:"*",component:Pagenotfound,layout:'none'},
 ];
 
 

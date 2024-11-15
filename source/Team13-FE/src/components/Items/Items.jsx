@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './Items.css';
 import CategoryIcons from '../Category/CategoryIcons';
 import OffcanvasListItems from '../../components/clientComponent/OffcanvasListItems/OffcanvasListItems'; // Import OffcanvasListItems component
+import Loadingpage from '../pages/Loadingpage/Loadingpage';
 
 export default function Items() {
     const [itemsData, setItemsData] = useState([]);
@@ -86,7 +87,7 @@ export default function Items() {
     const handleOpenOffcanvas = () => setShowOffcanvas(true);
     const handleCloseOffcanvas = () => setShowOffcanvas(false);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <><Loadingpage/></>;
     if (error) return <div>Error: {error.message}</div>;
 
 

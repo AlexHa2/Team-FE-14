@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Box, Button, Container, Typography, TextField, Avatar } from '@mui/material';
 import { auth, provider } from '../../../config/firebaseConfig.js';
 import { signInWithPopup, onAuthStateChanged } from "firebase/auth";
+import { UserContextStore } from "../../../Context/UserContext";
 
 function ProfileSettings() {
   const [firstName, setFirstName] = useState('');
@@ -11,7 +12,7 @@ function ProfileSettings() {
   const [isEditing, setIsEditing] = useState(false); // Track edit state
   const [tempFirstName, setTempFirstName] = useState(''); // Temporary values to hold changes
   const [tempLastName, setTempLastName] = useState('');
-
+  const { handleUserLogout } = useContext(UserContextStore);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -158,7 +159,10 @@ function ProfileSettings() {
         variant="contained"
         color="error"
         fullWidth
-        onClick={() => auth.signOut()}
+        onClick={ async () => {
+         await  auth.signOut()
+         await handleUserLogout()
+          }}
         sx={{ marginTop: 2 }}
       >
         Logout
