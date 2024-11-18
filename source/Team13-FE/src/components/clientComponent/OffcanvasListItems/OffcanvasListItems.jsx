@@ -22,9 +22,9 @@ export default function OffcanvasListItems({ StateShowListItems, handleClose, ..
 
 
     const handleImageChange = (e) => {
-        const images = Array.from(e.target.files);
-        if (images.length <= 10) {
-            images.map((image) => {
+        const Images = Array.from(e.target.files);
+        if (Images.length + images.length <= 10) {
+            Images.map((image) => {
                 const urlImage = URL.createObjectURL(image)
                 setImages((e) => [...e, urlImage])
             })
@@ -32,12 +32,10 @@ export default function OffcanvasListItems({ StateShowListItems, handleClose, ..
                 autoClose: 500,
             })
         } else {
-            setNotion(true)
-            const setNotionTimeOut = (notion) => {
-                setNotion(notion)
-            }
-            setTimeout(setNotionTimeOut, 1500, false)
-
+            setNotion(true);
+            setTimeout(() => {
+                setNotion(false); // Reset lại sau 1.5 giây
+            }, 1500);
         }
         e.target.files = null;
 
@@ -54,6 +52,8 @@ export default function OffcanvasListItems({ StateShowListItems, handleClose, ..
         setstateCheckButton(e.target.checked)
 
     }
+
+
 
     return (
         <>
@@ -78,8 +78,8 @@ export default function OffcanvasListItems({ StateShowListItems, handleClose, ..
                                                         <div className='every-image-of-list'>
                                                             <img
                                                                 src={img}
-                                                                width={95}
-                                                                height={103}
+                                                                width={100}
+                                                                height={100}
                                                                 alt='image-product-page'
                                                             />
                                                         </div>
@@ -112,7 +112,21 @@ export default function OffcanvasListItems({ StateShowListItems, handleClose, ..
 
                                             </>
                                         ) : (
-                                            null
+                                            <>
+                                                {images.slice(0, 10).map((img, index) => (
+                                                    <div key={index}>
+                                                        <div className='every-image-of-list'>
+                                                            <img
+                                                                src={img}
+                                                                width={100}
+                                                                height={100}
+                                                                alt='image-product-page'
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                ))}
+
+                                            </>
                                         )}
                                     </div>
                                 ) : (
@@ -230,7 +244,7 @@ export default function OffcanvasListItems({ StateShowListItems, handleClose, ..
                                 <option value="Kansas">Kansas</option>
                                 <option value="Kentucky">Kentucky</option>
                                 <option value="Louisiana">Louisiana</option>
-                               <option value="dLouisianaaho">Louisiana</option>
+                                <option value="dLouisianaaho">Louisiana</option>
                                 <option value="Maine">Maine</option>
                                 <option value="Maryland">Maryland</option>
                                 <option value="Massachusetts">Massachusetts</option>
@@ -254,7 +268,7 @@ export default function OffcanvasListItems({ StateShowListItems, handleClose, ..
                                 pointerEvents: stateCheckButton ? 'auto' : 'none',
                                 opacity: stateCheckButton ? 1 : 0.6,
                             }}>
-                            <Link to={"/order-complete"} style={{textDecoration:'none'}}>
+                            <Link to={"/order-complete"} style={{ textDecoration: 'none' }}>
                                 <div><CheckIcon /></div>
                                 <p style={{ margin: '0' }}>List Item</p>
                             </Link>
