@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Items.css';
 import CategoryIcons from '../Category/CategoryIcons';
-import OffcanvasListItems from '../../components/clientComponent/OffcanvasListItems/OffcanvasListItems'; // Import OffcanvasListItems component
+import FilterOffcanvas from '../Filter/FilterOffcanvas';
+import OffcanvasListItems from '../../components/clientComponent/OffcanvasListItems/OffcanvasListItems'; // Import OffcanvasListItems
 
 export default function Items() {
     const [itemsData, setItemsData] = useState([]);
@@ -11,7 +12,10 @@ export default function Items() {
     const [error, setError] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [currentPage, setCurrentPage] = useState(1);
-    const [showOffcanvas, setShowOffcanvas] = useState(false); // State to control Offcanvas visibility
+
+    const [showFilterOffcanvas, setShowFilterOffcanvas] = useState(false); // State hiển thị FilterOffcanvas
+    const [showNewItemOffcanvas, setShowNewItemOffcanvas] = useState(false); // State hiển thị OffcanvasListItems
+
     const itemsPerPage = 15;
 
     const navigate = useNavigate();
@@ -66,39 +70,42 @@ export default function Items() {
         setFilteredData(filteredItems);
     };
 
-    // Define handleCategorySelect to update selectedCategory and filter items
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);
         filterItemsByCategory(category);
     };
 
-    // Calculate the items to show on the current page
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
-    // Handle page change
     const handlePageChange = (page) => setCurrentPage(page);
 
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-    // Toggle Offcanvas visibility
-    const handleOpenOffcanvas = () => setShowOffcanvas(true);
-    const handleCloseOffcanvas = () => setShowOffcanvas(false);
+    // Các hàm riêng biệt để hiển thị Offcanvas
+    const handleOpenFilterOffcanvas = () => setShowFilterOffcanvas(true);
+    const handleCloseFilterOffcanvas = () => setShowFilterOffcanvas(false);
+
+    const handleOpenNewItemOffcanvas = () => setShowNewItemOffcanvas(true);
+    const handleCloseNewItemOffcanvas = () => setShowNewItemOffcanvas(false);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
 
-
     const handleViewProductDetail = (id) => {
-        navigate(`/product-detail/${id}`)
-    }
+        navigate(`/product-detail/${id}`);
+    };
+
     return (
         <div className="offers-container">
-            <CategoryIcons onCategorySelect={handleCategorySelect} /> {/* Pass handleCategorySelect to CategoryIcons */}
+            <CategoryIcons onCategorySelect={handleCategorySelect} />
             <div className="header-container">
                 <h2 className="all-offer-title">All offers</h2>
-                <button className="list-new-item-button" onClick={handleOpenOffcanvas}>
+                <button className="filter-button" onClick={handleOpenFilterOffcanvas}>
+                    Filter by
+                </button>
+                <button className="list-new-item-button" onClick={handleOpenNewItemOffcanvas}>
                     + List a new item
                 </button>
             </div>
@@ -138,10 +145,43 @@ export default function Items() {
                     </button>
                 ))}
             </div>
-            {/* OffcanvasListItems Component */}
-            <OffcanvasListItems 
-                StateShowListItems={showOffcanvas} 
-                handleClose={handleCloseOffcanvas} 
+            {/* Tích hợp FilterOffcanvas */}
+            <FilterOffcanvas
+                StateShowListItems={showFilterOffcanvas}
+                handleClose={handleCloseFilterOffcanvas}
+                onApplyFilter={(filters) => {
+                    const { category, state, minPrice, maxPrice } = filters;
+
+                    let filteredItems = itemsData;
+
+                    if (category && category !== 'All') {
+                        filteredItems = filteredItems.filter(item =>
+                            item.category.toLowerCase() === category.toLowerCase()
+                        );
+                    }
+                    if (state) {
+                        filteredItems = filteredItems.filter(item =>
+                            item.itemLocation.toLowerCase().includes(state.toLowerCase())
+                        );
+                    }
+                    if (minPrice !== null) {
+                        filteredItems = filteredItems.filter(item =>
+                            parseFloat(item.itemValue) >= minPrice
+                        );
+                    }
+                    if (maxPrice !== null) {
+                        filteredItems = filteredItems.filter(item =>
+                            parseFloat(item.itemValue) <= maxPrice
+                        );
+                    }
+
+                    setFilteredData(filteredItems);
+                }}
+            />
+            {/* Offcanvas thêm item mới */}
+            <OffcanvasListItems
+                StateShowListItems={showNewItemOffcanvas}
+                handleClose={handleCloseNewItemOffcanvas}
             />
         </div>
     );
