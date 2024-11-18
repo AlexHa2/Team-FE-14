@@ -70,7 +70,7 @@
 }
 
 /* Responsive cho thanh Category Icons */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     .category-icons-container {
         width: 100vw; /* Giãn toàn bộ chiều rộng màn hình */
         padding: 0 10px; /* Thêm khoảng cách hai bên */
@@ -87,3 +87,9 @@
     }
 }
 
+
+.swiper-wrapper{
+    display: flex;
+    justify-content: center;
+    
+}
