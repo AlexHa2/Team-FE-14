@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Items.css';
 import CategoryIcons from '../Category/CategoryIcons';
+
 import FilterOffcanvas from '../Filter/FilterOffcanvas';
 import OffcanvasListItems from '../../components/clientComponent/OffcanvasListItems/OffcanvasListItems'; // Import OffcanvasListItems
+import Loadingpage from '../pages/Loadingpage/Loadingpage';
+
 
 export default function Items() {
     const [itemsData, setItemsData] = useState([]);
@@ -90,7 +93,7 @@ export default function Items() {
     const handleOpenNewItemOffcanvas = () => setShowNewItemOffcanvas(true);
     const handleCloseNewItemOffcanvas = () => setShowNewItemOffcanvas(false);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <><Loadingpage/></>;
     if (error) return <div>Error: {error.message}</div>;
 
     const handleViewProductDetail = (id) => {

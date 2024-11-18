@@ -205,6 +205,7 @@ export default function OffcanvasListItems({ StateShowListItems, handleClose, ..
                         <div style={{ marginTop: '15px' }}>
                             <p style={{ fontWeight: "500", margin: "0", marginBottom: "10px" }}>Condition</p>
                             <Form.Select aria-label="Default select example">
+                                <option value="Viet Nam"> Viet Nam </option>
                                 <option value=" Arizona State University"> Arizona State University</option>
                                 <option value="Alabama">Alabama</option>
                                 <option value="Alaska">Alaska</option>

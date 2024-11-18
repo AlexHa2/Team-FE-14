@@ -1,11 +1,12 @@
 
-import { useNavigate, useParams } from "react-router-dom"
-import ProductDetail from "./ProductDetailPage"
-import { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+import Loadingpage from "../Loadingpage/Loadingpage";
 // import Listproduct from "../../../DataList/ProductData/ProductData"
 
 
-
+const ProductDetail = React.lazy(() => import("./ProductDetailPage"));
 const product =
     { image: 'https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lj9djg1jj6z031', price: 1000, productName: "cup starbuck", address: "ha noi", condition: "new" }
 
@@ -32,12 +33,17 @@ export default function PreProductDetailPage() {
         fetchData();
     }, []);
 
-    if (Error) return <div>Loading...</div>;
-    if (Loading) return <div>Error: {Error.message}</div>
-
-    return (<>
-        {ItemsData ? (<ProductDetail Product={ItemsData} UserLogin={true} />) :  (navigate('/'))}
-    </>
+    if(Loading){
+        return <><Loadingpage/></>
+    }
+    return (
+        <>
+            {ItemsData ? (
+            <Suspense fallback={<Loadingpage />}>
+                <ProductDetail Product={ItemsData} UserLogin={true} />
+            </Suspense>
+             ) : (navigate('/'))} 
+        </>
     )
     // console.log("items",ItemsData)
 
