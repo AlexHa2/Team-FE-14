@@ -1,169 +1,135 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Dialog, AppBar, Toolbar, IconButton, Typography, Slide, Container, useMediaQuery, useTheme } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import './MyListings.css';
 import AddItemDialog from './AddItemDialog';
-import ProductCard from './ProductCard';
-import axios from 'axios';
-import CloseIcon from '@mui/icons-material/Close';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const API_URL = "https://66937520c6be000fa07b9d27.mockapi.io/products";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+export default function MyListings() {
+    const [products, setProducts] = useState([]);
+    const [showAddDialog, setShowAddDialog] = useState(false);
+    const [currentProduct, setCurrentProduct] = useState(null);
+    const navigate = useNavigate();
 
-function MyListings() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [currentProduct, setCurrentProduct] = useState(null);
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                setProducts(data);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        };
+        fetchProducts();
+    }, []);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get(API_URL);
-        const sortedProducts = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        setProducts(sortedProducts);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
+    const handleOpenAddDialog = (product = null) => {
+        setCurrentProduct(product);
+        setShowAddDialog(true);
     };
 
-    fetchProducts();
-  }, []);
+    const handleCloseAddDialog = () => {
+        setShowAddDialog(false);
+        setCurrentProduct(null);
+    };
 
-  const handleAddProduct = async (newProduct) => {
-    try {
-      const response = await axios.post(API_URL, newProduct);
-      setProducts([response.data, ...products]);
-      setIsDialogOpen(false);
-    } catch (error) {
-      console.error("Error adding product:", error);
-    }
-  };
+    const handleAddProduct = async (newProduct) => {
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newProduct),
+            });
+            const createdProduct = await response.json();
+            setProducts([createdProduct, ...products]);
+            handleCloseAddDialog();
+        } catch (error) {
+            console.error("Error adding product:", error);
+        }
+    };
 
-  const handleUpdateProduct = async (updatedProduct) => {
-    try {
-      const response = await axios.put(`${API_URL}/${updatedProduct.id}`, updatedProduct);
-      const updatedProducts = products.map((product) =>
-        product.id === updatedProduct.id ? response.data : product
-      );
-      setProducts(updatedProducts);
-      setIsDialogOpen(false);
-    } catch (error) {
-      console.error("Error updating product:", error);
-    }
-  };
+    const handleUpdateProduct = async (updatedProduct) => {
+        try {
+            const response = await fetch(`${API_URL}/${updatedProduct.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedProduct),
+            });
+            const savedProduct = await response.json();
+            setProducts(products.map(product => product.id === savedProduct.id ? savedProduct : product));
+            handleCloseAddDialog();
+        } catch (error) {
+            console.error("Error updating product:", error);
+        }
+    };
 
-  const handleOpenDialog = (product = null) => {
-    setCurrentProduct(product);
-    setIsDialogOpen(true);
-  };
+    const handleDeleteProduct = async (id) => {
+        try {
+            await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            setProducts(products.filter(product => product.id !== id));
+        } catch (error) {
+            console.error("Error deleting product:", error);
+        }
+    };
 
-  const handleCloseDialog = () => {
-    setIsDialogOpen(false);
-    setCurrentProduct(null);
-  };
+    const handleViewProductDetail = (id) => {
+        navigate(`/product-detail/${id}`);
+    };
 
-  const handleDeleteProduct = async (id) => {
-    try {
-      await axios.delete(`${API_URL}/${id}`);
-      setProducts(products.filter((product) => product.id !== id));
-    } catch (error) {
-      console.error("Error deleting product:", error);
-    }
-  };
-
-  return (
-    <Box display="flex" flexDirection="column" alignItems="center" sx={{ p: 3 }}>
-      {/* Phần tiêu đề và nút căn giữa */}
-      <Box display="flex" flexDirection="column" alignItems="center" mb={4}>
-        <Typography variant="h4" align="center" gutterBottom>
-          My Listings
-        </Typography>
-        <Typography variant="body1" align="center" gutterBottom>
-          You can manage your listed items here.
-        </Typography>
-        <Button variant="contained" color="primary" onClick={() => handleOpenDialog()} sx={{ mt: 2 }}>
-          List a new item
-        </Button>
-      </Box>
-
-      {/* Danh sách sản phẩm */}
-      <Box
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center', // Căn giữa các sản phẩm
-          gap: 3, // Khoảng cách giữa các sản phẩm
-          marginTop: '20px',
-        }}
-      >
-        {products.length === 0 ? (
-          <Typography variant="body1" align="center">No products available</Typography>
-        ) : (
-          products.map((product) => (
-            <Box
-              key={product.id}
-              sx={{
-                flexBasis: 'calc(33.333% - 16px)', // Cài đặt độ rộng mỗi sản phẩm chiếm 1/3 chiều rộng container
-                minWidth: '280px', // Độ rộng tối thiểu
-                boxSizing: 'border-box',
-              }}
-            >
-              <ProductCard
-                image={product.images && product.images.length > 0 ? product.images[0] : ''}
-                price={product.price}
-                productName={product.productName}
-                state={product.state}
-                onDelete={() => handleDeleteProduct(product.id)}
-                onEdit={() => handleOpenDialog(product)}
-              />
-            </Box>
-          ))
-        )}
-      </Box>
-
-      {/* Dialog for Add/Edit Item */}
-      <Dialog
-        fullScreen={fullScreen}
-        open={isDialogOpen}
-        onClose={handleCloseDialog}
-        TransitionComponent={Transition}
-        PaperProps={{
-          sx: fullScreen
-            ? { width: '100%', maxWidth: '100%' }
-            : { width: '30%', right: 0, position: 'absolute', maxWidth: '100%', overflowX: 'hidden' }
-        }}
-      >
-        <AppBar sx={{ position: 'relative' }}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleCloseDialog}
-              aria-label="close"
-              sx={{ marginRight: 2 }}
-            >
-              <CloseIcon />
-            </IconButton>
-            <Typography sx={{ flex: 1 }} variant="h6" component="div">
-              {currentProduct ? 'Edit Product' : 'List a new item'}
-            </Typography>
-          </Toolbar>
-        </AppBar>
-
-        <Container maxWidth="sm" sx={{ mt: 4 }}>
-          <AddItemDialog
-            onClose={handleCloseDialog}
-            onAddProduct={handleAddProduct}
-            onUpdateProduct={handleUpdateProduct}
-            currentProduct={currentProduct}
-          />
-        </Container>
-      </Dialog>
-    </Box>
-  );
+    return (
+        <div className="offers-container">
+            <div className="header-container">
+                <h2 className="all-offer-title">My Listings</h2>
+                <button className="list-new-item-button" onClick={() => handleOpenAddDialog()}>
+                    + List a new item
+                </button>
+            </div>
+            <div className="items-container">
+                {products.length ? (
+                    products.map(product => (
+                        <div key={product.id} className="item-card">
+                            <div className="item-image-section" onClick={() => handleViewProductDetail(product.id)}>
+                                <img 
+                                    src={product.images && product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/250'} 
+                                    alt={product.productName || "Product"} 
+                                    className="item-image" 
+                                />
+                                <div className="item-owner">{product.ownerName || 'Owner'}'s offer</div>
+                                <div className="item-offer-icon-container">
+                                    <div className="offer-icon">+</div>
+                                    <div className="item-offer-text">Make an offer</div>
+                                </div>
+                            </div>
+                            <div className="item-details">
+                                <div className="item-value">
+                                    valued: <strong>${product.price}</strong> 💸 Partial Cash
+                                </div>
+                                <div className="item-description">{product.productName}</div>
+                                <div className="item-location">📍 {product.location || 'Location'}</div>
+                            </div>
+                            <div className="item-actions">
+                                <button onClick={() => handleOpenAddDialog(product)}>
+                                    <EditIcon />
+                                </button>
+                                <button onClick={() => handleDeleteProduct(product.id)}>
+                                    <DeleteIcon />
+                                </button>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <div>No products available</div>
+                )}
+            </div>
+            <AddItemDialog 
+                show={showAddDialog} 
+                onClose={handleCloseAddDialog} 
+                onSave={currentProduct ? handleUpdateProduct : handleAddProduct}
+                product={currentProduct}
+            />
+        </div>
+    );
 }
-
-export default MyListings;

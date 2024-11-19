@@ -1,136 +1,177 @@
-import React, { useState, useEffect } from 'react';
-import { Button, TextField, FormControl, Select, MenuItem, InputLabel, Box, IconButton, Container } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import CheckIcon from "@mui/icons-material/Check";
 
-function AddItemDialog({ onClose, onAddProduct, onUpdateProduct, currentProduct }) {
-  const [productName, setProductName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [category, setCategory] = useState('');
-  const [condition, setCondition] = useState('');
-  const [state, setState] = useState('');
-  const [images, setImages] = useState([]);
+export default function AddItemDialog({ show, onClose, onSave, product }) {
+    const [productName, setProductName] = useState("");
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState("");
+    const [imageUrl, setImageUrl] = useState("");
+    const [category, setCategory] = useState("");
+    const [condition, setCondition] = useState("");
+    const [location, setLocation] = useState("");
 
-  useEffect(() => {
-    if (currentProduct) {
-      setProductName(currentProduct.productName);
-      setDescription(currentProduct.description);
-      setPrice(currentProduct.price);
-      setCategory(currentProduct.category);
-      setCondition(currentProduct.condition);
-      setState(currentProduct.state);
-      setImages(currentProduct.images || []);
-    } else {
-      resetForm();
-    }
-  }, [currentProduct]);
+    useEffect(() => {
+        if (product) {
+            setProductName(product.productName || "");
+            setDescription(product.description || "");
+            setPrice(product.price || "");
+            setImageUrl(product.images?.[0] || "");
+            setCategory(product.category || "");
+            setCondition(product.condition || "");
+            setLocation(product.location || "");
+        } else {
+            resetForm();
+        }
+    }, [product]);
 
-  const resetForm = () => {
-    setProductName('');
-    setDescription('');
-    setPrice('');
-    setCategory('');
-    setCondition('');
-    setState('');
-    setImages([]);
-  };
-
-  const handleImageChange = (e) => {
-    setImages([e.target.value]);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const productData = {
-      productName,
-      description,
-      price,
-      category,
-      condition,
-      state,
-      images
+    const resetForm = () => {
+        setProductName("");
+        setDescription("");
+        setPrice("");
+        setImageUrl("");
+        setCategory("");
+        setCondition("");
+        setLocation("");
     };
 
-    if (currentProduct) {
-      onUpdateProduct({ ...productData, id: currentProduct.id });
-    } else {
-      onAddProduct(productData);
-    }
-  };
+    const handleSave = () => {
+        if (!productName || !description || !price || !imageUrl) {
+            alert("Please fill in all required fields!");
+            return;
+        }
 
-  return (
-    <Container maxWidth="sm" sx={{ mt: 4 }}>
-      <Box component="form" onSubmit={handleSubmit} sx={{ position: 'relative', p: 2 }}>
-        <IconButton onClick={onClose} style={{ position: 'absolute', top: '10px', right: '10px' }}>
-          <CloseIcon />
-        </IconButton>
+        const newItem = {
+            productName,
+            description,
+            price: parseFloat(price),
+            images: [imageUrl],
+            category,
+            condition,
+            location, // Updated field for location
+        };
 
-        <TextField
-          label="Product name"
-          value={productName}
-          onChange={(e) => setProductName(e.target.value)}
-          fullWidth
-          margin="normal"
-        />
+        onSave(newItem);
+        resetForm();
+    };
 
-        <TextField
-          label="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          fullWidth
-          margin="normal"
-          multiline
-          rows={4}
-        />
+    return (
+        <Modal show={show} onHide={onClose} centered>
+            <Modal.Header closeButton>
+                <Modal.Title>{product ? "Edit Item" : "Add Item"}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form>
+                    {/* Image URL Input */}
+                    <Form.Group controlId="formImageUrl" className="mb-3">
+                        <Form.Label>Image URL</Form.Label>
+                        <div className="d-flex align-items-center">
+                            <AddCircleIcon className="me-2" />
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter image URL"
+                                value={imageUrl}
+                                onChange={(e) => setImageUrl(e.target.value)}
+                                required
+                            />
+                        </div>
+                    </Form.Group>
 
-        <TextField
-          label="Price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          fullWidth
-          margin="normal"
-        />
+                    {/* Product Name */}
+                    <Form.Group controlId="formProductName" className="mb-3">
+                        <Form.Label>Product Name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            maxLength="120"
+                            placeholder="Enter product name"
+                            value={productName}
+                            onChange={(e) => setProductName(e.target.value)}
+                            required
+                        />
+                        <Form.Text>{productName.length}/120</Form.Text>
+                    </Form.Group>
 
-        <TextField
-          label="Image URL"
-          value={images[0] || ''}
-          onChange={handleImageChange}
-          fullWidth
-          margin="normal"
-        />
+                    {/* Description */}
+                    <Form.Group controlId="formDescription" className="mb-3">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            rows={4}
+                            maxLength="800"
+                            placeholder="Enter product description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            required
+                        />
+                        <Form.Text>{description.length}/800</Form.Text>
+                    </Form.Group>
 
-        <FormControl fullWidth margin="normal">
-          <InputLabel>Category</InputLabel>
-          <Select value={category} onChange={(e) => setCategory(e.target.value)}>
-            <MenuItem value="Electronics">Electronics</MenuItem>
-            <MenuItem value="Fashion">Fashion</MenuItem>
-            <MenuItem value="Home">Home</MenuItem>
-          </Select>
-        </FormControl>
+                    {/* Price */}
+                    <Form.Group controlId="formPrice" className="mb-3">
+                        <Form.Label>Price</Form.Label>
+                        <div className="d-flex">
+                            <Form.Control
+                                type="number"
+                                placeholder="Enter price"
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                required
+                            />
+                            <span className="ms-2 align-self-center">$</span>
+                        </div>
+                    </Form.Group>
 
-        <FormControl fullWidth margin="normal">
-          <InputLabel>Condition</InputLabel>
-          <Select value={condition} onChange={(e) => setCondition(e.target.value)}>
-            <MenuItem value="New">New</MenuItem>
-            <MenuItem value="Used">Used</MenuItem>
-          </Select>
-        </FormControl>
+                    {/* Category */}
+                    <Form.Group controlId="formCategory" className="mb-3">
+                        <Form.Label>Category</Form.Label>
+                        <Form.Select
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                        >
+                            <option value="">Select category</option>
+                            <option value="Books">Books</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Other">Other</option>
+                        </Form.Select>
+                    </Form.Group>
 
-        <FormControl fullWidth margin="normal">
-          <InputLabel>State</InputLabel>
-          <Select value={state} onChange={(e) => setState(e.target.value)}>
-            <MenuItem value="Available">Available</MenuItem>
-            <MenuItem value="Sold">Sold</MenuItem>
-          </Select>
-        </FormControl>
+                    {/* Condition */}
+                    <Form.Group controlId="formCondition" className="mb-3">
+                        <Form.Label>Condition</Form.Label>
+                        <Form.Select
+                            value={condition}
+                            onChange={(e) => setCondition(e.target.value)}
+                        >
+                            <option value="">Select condition</option>
+                            <option value="New">New</option>
+                            <option value="Used">Used</option>
+                        </Form.Select>
+                    </Form.Group>
 
-        <Button type="submit" variant="contained" color="primary" fullWidth>
-          {currentProduct ? 'Update Product' : 'Add Product'}
-        </Button>
-      </Box>
-    </Container>
-  );
+                    {/* Location */}
+                    <Form.Group controlId="formLocation" className="mb-3">
+                        <Form.Label>Location</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="Enter location"
+                            value={location}
+                            onChange={(e) => setLocation(e.target.value)}
+                        />
+                    </Form.Group>
+                </Form>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={onClose}>
+                    Cancel
+                </Button>
+                <Button variant="primary" onClick={handleSave}>
+                    <CheckIcon className="me-2" />
+                    Save Changes
+                </Button>
+            </Modal.Footer>
+        </Modal>
+    );
 }
-
-export default AddItemDialog;

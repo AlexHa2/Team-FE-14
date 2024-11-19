@@ -49,6 +49,10 @@ export default function Header() {
 
     };
 
+    const handleListANewItems = () => {
+        
+    }
+
     return (
         <>
             <Offcanva stateShow={stateShowOffcanvas} handleClose={handleCloseOffcanvas} userLogin={userState.userLogin} />
@@ -99,7 +103,7 @@ export default function Header() {
                                 <p>My listings</p>
                             </div>
                         </div>
-                        <div className="button-add-my-listing-header">
+                        <div className="button-add-my-listing-header" onClick={handleListANewItems()}>
                             <div className="block-icon-items" id="icon-add-new-header">
                                 <div className="block-button-after-login-header"><AddCircleOutlineIcon /></div>
                                 <p className="button-add-new-items-header">List a new item</p>

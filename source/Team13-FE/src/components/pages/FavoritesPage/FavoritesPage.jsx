@@ -16,7 +16,7 @@ function FavoritesPage() {
         const response = await axios.get(API_URL);
         setFavorites(response.data);
       } catch (error) {
-        console.error("Error fetching favorite products:", error);
+        console.error('Error fetching favorite products:', error);
       } finally {
         setLoading(false);
       }
@@ -24,6 +24,10 @@ function FavoritesPage() {
 
     fetchFavorites();
   }, []);
+
+  const handleDeleteProduct = (id) => {
+    setFavorites((prevFavorites) => prevFavorites.filter((product) => product.id !== id));
+  };
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" sx={{ p: 4 }}>
@@ -53,7 +57,7 @@ function FavoritesPage() {
           sx={{ width: '100%' }}
         >
           {favorites.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} onDelete={handleDeleteProduct} />
           ))}
         </Box>
       )}
