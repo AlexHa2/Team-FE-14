@@ -6,7 +6,7 @@ import CategoryIcons from '../Category/CategoryIcons';
 import FilterOffcanvas from '../Filter/FilterOffcanvas';
 import OffcanvasListItems from '../../components/clientComponent/OffcanvasListItems/OffcanvasListItems'; // Import OffcanvasListItems
 import Loadingpage from '../pages/Loadingpage/Loadingpage';
-
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 export default function Items() {
     const [itemsData, setItemsData] = useState([]);
@@ -128,7 +128,10 @@ export default function Items() {
                                 <div className="item-value">
                                     valued: <strong>${item.itemValue}</strong> 💸 Partial Cash
                                 </div>
-                                <div className="item-description">{item.itemName}</div>
+                                <div className="item-description" style={{display:"flex",justifyContent:"space-between"}}>
+                                    <p style={{margin:"0"}}> {item.itemName}</p>
+                                    <p style={{margin:"0",cursor:"pointer"}}><FavoriteBorderIcon/></p>
+                                    </div>
                                 <div className="item-location">📍 {item.itemLocation}</div>
                             </div>
                         </div>

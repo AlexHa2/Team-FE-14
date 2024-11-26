@@ -16,7 +16,7 @@ const AdminPage = () => {
             <Container>
                 {showItemsList && (
                     <>
-                        <Typography variant="h4" gutterBottom sx={{ marginTop: 3 }}>Items List Information</Typography>
+                        <Typography variant="h4" gutterBottom sx={{ marginTop: 3 }}>Items List Information sss</Typography>
 
                         <TableContainer component={Paper}>
                             <Table>

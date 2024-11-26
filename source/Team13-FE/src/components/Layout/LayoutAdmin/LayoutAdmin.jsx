@@ -24,7 +24,7 @@ export default function LayoutAdmin({ children }) {
                         <ListItem>
                             <ListItemText primary="Dashboard" primaryTypographyProps={{ fontWeight: 'bold', fontSize: 20 }} />
                         </ListItem>
-                        <ListItem button onClick={() => handleNavigation('admin')}>
+                        <ListItem button >
                             <ListItemIcon><DashboardIcon /></ListItemIcon>
                             <ListItemText primary="Dashboard" />
                         </ListItem>
@@ -32,7 +32,7 @@ export default function LayoutAdmin({ children }) {
                             <ListItemIcon><PersonIcon /></ListItemIcon>
                             <ListItemText primary="Users Management" />
                         </ListItem>
-                        <ListItem button >
+                        <ListItem button onClick={() => handleNavigation('admin')}>
                             <ListItemIcon><InventoryIcon /></ListItemIcon>
                             <ListItemText primary="Item Management" />
                         </ListItem>

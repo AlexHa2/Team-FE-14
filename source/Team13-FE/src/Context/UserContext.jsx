@@ -2,7 +2,9 @@ import React from 'react'
 const UserContextStore = React.createContext()
 
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 export default function UserContext({ children }) {
+    const navigate = useNavigate()
     const [userState, setUserState] = useState({
 
         userInfor: JSON.parse(localStorage.getItem("userInfor")) || {},// muốn lấy là phải parse về thành object
@@ -32,6 +34,7 @@ export default function UserContext({ children }) {
             userInfor: {},        // Cập nhật state là đối tượng rỗng
             userLogin: false      // Cập nhật state là false
         });
+        navigate("/")
     }
     return (
         <>
